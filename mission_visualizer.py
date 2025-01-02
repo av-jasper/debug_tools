@@ -37,6 +37,9 @@ def get_mission_count(mavlink_connection):
             return 0
         if msg.get_type() == "MISSION_COUNT":
             print(f"Mission count received: {msg.count}")
+            data = msg.to_dict()
+            for key, value in data.items():
+                print(f"{key}: {value}")
             return msg.count
 
 
@@ -116,6 +119,14 @@ def visualize_waypoints(waypoints):
         if param2 > 0:
             # Approximate the radius in degrees for the horizontal circle
             radius_deg = param2 / 111000  # Convert meters to degrees
+            u = np.linspace(0, 2 * np.pi, 100)
+            x_circle = lon + radius_deg * np.cos(u)
+            y_circle = lat + radius_deg * np.sin(u)
+            z_circle = np.full_like(x_circle, alt)  # Altitude stays constant for the circle
+            ax.plot(x_circle, y_circle, z_circle, color='red', linestyle='--')
+        elif param3 > 0:
+            # Approximate the radius in degrees for the horizontal circle
+            radius_deg = param3 / 111000  # Convert meters to degrees
             u = np.linspace(0, 2 * np.pi, 100)
             x_circle = lon + radius_deg * np.cos(u)
             y_circle = lat + radius_deg * np.sin(u)
