@@ -1,7 +1,7 @@
 from pymavlink import mavutil
 
 # Connection string for MAVLink
-connection_string = "udp:0.0.0.0:14551"
+connection_string = "udp:0.0.0.0:14550"
 # Alternatively, you can use TCP
 # connection_string = "tcp:av-quark-2.local:14550"
 
